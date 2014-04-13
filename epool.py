@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import serial
 import httplib, urllib
 
