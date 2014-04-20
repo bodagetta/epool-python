@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import serial
-import httplib, urllib
+import httplib2, urllib
+import time
 
 global parseWSNDemoData 
 def parseWSNDemoData(buf): 
@@ -107,18 +108,18 @@ def sendData(frame):
 		'point[channelMask]': frame['channelMask']
 		})
 	headers = {}
-	conn = httplib.HTTPConnection("162.243.216.19")
-	conn.request("POST", "/points", params, headers)
-	response = conn.getresponse()
-	print response.status, response.reason
-	data = response.read()
-	print data
-	conn.close()
+	h = httplib2.Http()
+        resp, content = h.request("http://www.poollog.net/points", "POST", params, headers)
+	#conn.request("POST", "/points", params, headers)
+	#response = conn.getresponse()
+	#print response.status, response.reason
+	#data = response.read()
+	#print data
+        print resp
 
 
-ser = serial.Serial('/dev/tty.usbserial-A102GUE8')
 ser = serial.Serial(
-    port='/dev/tty.usbserial-A102GUE8',
+    port='/dev/ttyUSB0',
     baudrate=38400,
     parity=serial.PARITY_NONE,
     stopbits=serial.STOPBITS_ONE,
@@ -135,6 +136,7 @@ while 1==1:
     #if int(readValue.encode('hex'), 16) == 0x10:
     #	print "GOT 0x10"
     if frame != None:
+	print time.strftime("%c")
         print frame
         if(frame['shortAddr'] != 0):
             sendData(frame)
