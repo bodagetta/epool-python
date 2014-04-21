@@ -29,7 +29,9 @@ def parseWSNDemoData(buf):
   res['sensorsSize']     = buf[28] 
   res['battery']         = get(buf[29:32]) 
   res['temperature']     = get(buf[33:36]) 
-  res['light']           = get(buf[37:40]) 
+  res['light']           = get(buf[37:38]) 
+  res['ph'] 		 = get(buf[37:39])
+  res['orp']		 = get(buf[41:43])
   return res 
 
 # WSNDemo protocol state machine. Must be caled on every received byte. 
@@ -83,6 +85,7 @@ def WSNDemoProtocolSM(c):
     smState = IDLE_STATE; 
 
     if (len(dataBuffer) == 57) and (c == ((sum(fullData)-c) & 0xff)):
+	print dataBuffer
         return parseWSNDemoData(dataBuffer) 
 
   return None 
@@ -105,7 +108,9 @@ def sendData(frame):
 		'point[rssi]': frame['rssi'],
 		'point[parentShortAddr]': frame['parentShortAddr'],
 		'point[panID]': frame['panID'],
-		'point[channelMask]': frame['channelMask']
+		'point[channelMask]': frame['channelMask'],
+		'point[ph]' : frame['ph'],
+		'point[orp]' : frame['orp']
 		})
 	headers = {}
 	h = httplib2.Http()
