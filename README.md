@@ -1,7 +1,7 @@
 epool-python
 ============
 
-Python script to interface with the <a href="http://www.game-group.com/products/epool/">e-pool wireless pool monitor</a> base station.
+Python script to interface with the <a href="http://www.game-group.com/products/epool/">e-pool wireless pool monitor</a> base station and upload data to the <a href="https://github.com/bodagetta/epool-display">e-pool monitor</a> rails app. 
 
 I run this script on a <a href="http://www.raspberrypi.org/product/model-b/">Raspberry Pi Model B Board</a> running Raspian OS and the <a href="http://www.newark.com/element14/wipi/module-wifi-usb-for-raspberry/dp/07W8938?CMP=KNC-GPLA">WiPi Dongle</a>
 
